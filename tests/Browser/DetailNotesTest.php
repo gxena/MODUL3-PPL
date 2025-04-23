@@ -5,11 +5,11 @@ namespace Tests\Browser;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class LoginTest extends DuskTestCase
+class DetailNotesTest extends DuskTestCase
 {
     /**
-     * A Dusk test example.
-     * @group Login
+     * A Dusk test example,
+     * @group detail
      */
     public function testExample(): void
     {
@@ -21,7 +21,11 @@ class LoginTest extends DuskTestCase
                     ->type('email', 'x@gmail.com') // mengisi input dengan name "email" dengan nilai "x@gmail.com"
                     ->type('password', 'password') // mengisi input dengan name "password" dengan nilai "password"
                     ->press('LOG IN') // menekan tombol dengan label "LOG IN"
-                    ->assertPathIs('/dashboard'); // memastikan bahwa setelah login berhasil, user diarahkan ke path "/dashboard"
+
+                    ->assertPathIs('/dashboard') // memastikan bahwa user diarahkan ke halaman "/dashboard" setelah login
+                    ->visit('/notes') // mengunjungi halaman "/notes"
+                    ->clickLink('Praktikum') // mengklik link atau judul note dengan nama "Praktikum"
+                    ->assertSee('Notes / Praktikum'); // memastikan bahwa teks "Notes / Praktikum" muncul, menunjukkan halaman detail note
         });
     }
 }
